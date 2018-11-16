@@ -1,23 +1,23 @@
 {
   "development": {
-    "username": "mbm",
-    "password": "mbmp455w0rd",
+    "username": "root",
+    "password": "",
     "database": "ticketing",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "timezone": "Asia/Jakarta"
   },
   "test": {
-    "username": "mbm",
-    "password": "mbmp455w0rd",
+    "username": "root",
+    "password": "",
     "database": "ticketing",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "timezone": "Asia/Jakarta"
   },
   "production": {
-    "username": "mbm",
-    "password": "mbmp455w0rd",
+    "username": "root",
+    "password": "",
     "database": "ticketing",
     "host": "127.0.0.1",
     "dialect": "mysql",

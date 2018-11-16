@@ -1,4 +1,5 @@
 const Ticket = require('../models').ticket;
+const Dashboard = require('../models').dashboard;
 
 module.exports = {
 	all(req, res) {
@@ -8,6 +9,84 @@ module.exports = {
 				status: true,
 				message: 'Managed to retrieve all ticket data.',
 				data: tickets
+			})
+		})
+		.catch((err) => {
+			res.status(400).send({
+				status: false,
+				message: err.original.sqlMessage
+			})
+		})
+	},
+
+	counting(req, res) {
+		return Dashboard.findOne({
+			where: {
+				id: 1
+			}
+		})
+		.then((dashboard) => {
+			if(!dashboard) {
+				return res.status(400).send({
+					status: false,
+					message: 'Counter not found.'
+				})
+			}
+
+			return dashboard.updateAttributes({
+				count: dashboard.count + 1
+			})
+			.then(() => {
+	            return res.status(200).send({
+					status: true,
+					message: 'Counter success.',
+					data: dashboard.count
+				})
+			})
+			.catch((err) => {
+				res.status(400).send({
+					status: false,
+					message: err.original.sqlMessage
+				})
+			})
+		})
+		.catch((err) => {
+			res.status(400).send({
+				status: false,
+				message: err.original.sqlMessage
+			})
+		})
+	},
+
+	decrease(req, res) {
+		return Dashboard.findOne({
+			where: {
+				id: 1
+			}
+		})
+		.then((dashboard) => {
+			if(!dashboard) {
+				return res.status(400).send({
+					status: false,
+					message: 'Counter not found.'
+				})
+			}
+
+			return dashboard.updateAttributes({
+				count: dashboard.count - 1
+			})
+			.then(() => {
+	            return res.status(200).send({
+					status: true,
+					message: 'Counter success.',
+					data: dashboard.count
+				})
+			})
+			.catch((err) => {
+				res.status(400).send({
+					status: false,
+					message: err.original.sqlMessage
+				})
 			})
 		})
 		.catch((err) => {

@@ -1,14 +1,10 @@
 var express = require('express');
-var router = express.Router();
 const Ticket = require('../controllers').ticket;
 
-/* GET home page. */
-router.get('/', (req, res, next) => {
-  res.render('index', { title: 'Express' });
-});
-
-router.get('/ticket', Ticket.all);
-// router.post('/ticket', Ticket.add);
-router.post('/ticket-validate', Ticket.validate);
-
-module.exports = router;
+module.exports = (app) => {
+	app.get('/ticket', Ticket.all);
+	// router.post('/ticket', Ticket.add);
+	app.post('/ticket-validate', Ticket.validate);
+	app.get('/counting', Ticket.counting);
+	app.get('/decrease', Ticket.decrease);
+}
