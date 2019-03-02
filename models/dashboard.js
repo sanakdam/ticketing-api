@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     reg_id: DataTypes.TEXT,
     count: DataTypes.INTEGER
   }, {
-      timestamps: true,
+      freezeTableName: true,
   	  timestamps: false
   });
   dashboard.associate = function(models) {
