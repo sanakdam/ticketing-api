@@ -1,6 +1,9 @@
 const Ticket = require('../models').ticket;
 const Dashboard = require('../models').dashboard;
-var QRCode = require('qrcode')
+const QRCode = require('qrcode');
+const APP_CONFIG = require('../config');
+const FCM = require('fcm-node');
+const fcm = new FCM(APP_CONFIG.SERVER_KEY);
 
 module.exports = {
 	all(req, res) {
@@ -156,22 +159,45 @@ module.exports = {
             where: {}
         })
         .then(() => {
-            let number = 2019020001
-            for(let ticket of tickets) {
-                Ticket.create({
-                    code: number,
-                    outlet: ticket[1].toUpperCase(),
-                    area: ticket[2],
-                    strata: ticket[0],
-                    information: ticket[3],
-                    table: ticket[4]
+            return Dashboard.destroy({
+                where: {}
+            })
+            .then(() => {
+                return Dashboard.create({
+                    reg_id: "",
+                    count: 0
                 })
-                number++
-            }
+                .then(() => {
+                    let number = 2019020001
+                    for(let ticket of tickets) {
+                        Ticket.create({
+                            code: number,
+                            outlet: ticket[1].toUpperCase(),
+                            area: ticket[2],
+                            strata: ticket[0],
+                            information: ticket[3],
+                            table: ticket[4]
+                        })
+                        number++
+                    }
 
-            res.status(201).send({
-                status: true,
-                message: 'Berhasil generate data tiket.',
+                    res.status(201).send({
+                        status: true,
+                        message: 'Berhasil generate data tiket.',
+                    })
+                })
+                .catch((err) => {
+                    res.status(400).send({
+                        status: false,
+                        message: err.original.sqlMessage
+                    })
+                })
+            })
+            .catch((err) => {
+                res.status(400).send({
+                    status: false,
+                    message: err.original.sqlMessage
+                })
             })
         })
         .catch((err) => {
@@ -278,6 +304,36 @@ module.exports = {
 		})
 	},
 
+    getDashboard() {
+        return new Promise((resolve, reject) => {
+            return Dashboard.findOne()
+            .then((dashboard) => {
+                resolve(dashboard)
+            })
+            .catch((err) => {
+                reject(err)
+            })
+        })
+    },
+
+    async sendFcm(data) {
+        let dashboard = await module.exports.getDashboard()
+        fcm.send({
+              to: dashboard.reg_id,
+              notification: {
+                  title: 'Selamat Datang!',
+                  body: 'Terimakasih sudah menggunakan layanan kami 🙌.'
+              },
+              data: data
+          }, (err, response) => {
+            if (err) {
+                console.log("Something has gone wrong!")
+            } else {
+                console.log("Successfully sent with response: ", response)
+            }
+        })
+    },
+
 	validate(req, res) {
 		return Ticket.findOne({
 			where: {
@@ -296,6 +352,8 @@ module.exports = {
 				status: 1
 			})
 			.then(() => {
+                module.exports.sendFcm(ticket)
+
 				res.status(200).send({
 					status: true,
 					message: 'Tiket berhasil divalidasi.'
