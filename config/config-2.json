@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "san",
+    "password": "Password",
+    "database": "ticketing",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "timezone": "Asia/Jakarta"
+  },
+  "test": {
+    "username": "san",
+    "password": "Password",
+    "database": "ticketing",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "timezone": "Asia/Jakarta"
+  },
+  "production": {
+    "username": "san",
+    "password": "Password",
+    "database": "ticketing",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "timezone": "Asia/Jakarta"
+  }
+}
