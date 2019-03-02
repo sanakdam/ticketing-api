@@ -6,7 +6,8 @@ module.exports = (sequelize, DataTypes) => {
     outlet: DataTypes.STRING,
     area: DataTypes.STRING,
     strata: DataTypes.STRING,
-    information: DataTypes.STRING
+    information: DataTypes.STRING,
+    table: DataTypes.STRING
   }, {
   	freezeTableName: true,
     timestamps: false

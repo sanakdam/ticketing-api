@@ -31,6 +31,10 @@ module.exports = {
         information: {
             allowNull: false,
             type: Sequelize.STRING
+        },
+        table: {
+            defaultValue: "",
+            type: Sequelize.STRING
         }   
     });
   },
