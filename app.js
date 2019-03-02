@@ -34,7 +34,7 @@ app.get('*', (req, res) => res.status(404).send({
     message: 'No api route on this value.'
 }));
 
-const port = parseInt(process.env.PORT, 10) || 8084;
+const port = parseInt(process.env.PORT, 10) || 3000;
 app.set('port', port);
 const server = http.createServer(app);
 server.listen(port);
