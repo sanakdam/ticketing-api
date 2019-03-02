@@ -304,9 +304,47 @@ module.exports = {
 		})
 	},
 
+    putFCM(req, res) {
+        return Dashboard.findOne({
+            where: {}
+        })
+        .then((dashboard) => {
+            if(!dashboard) {
+                return res.status(400).send({
+                    status: false,
+                    message: 'Fcm data tidak ditemukan.'
+                })
+            }
+
+            return dashboard.updateAttributes({
+                reg_id: req.body.reg_id
+            })
+            .then(() => {
+                return res.status(200).send({
+                    status: true,
+                    message: 'Behasil update fcm data.'
+                })
+            })
+            .catch((err) => {
+                res.status(400).send({
+                    status: false,
+                    message: err.original.sqlMessage
+                })
+            })
+        })
+        .catch((err) => {
+            res.status(400).send({
+                status: false,
+                message: err.original.sqlMessage
+            })
+        })
+    },
+
     getDashboard() {
         return new Promise((resolve, reject) => {
-            return Dashboard.findOne()
+            return Dashboard.findOne({
+                where: {}
+            })
             .then((dashboard) => {
                 resolve(dashboard)
             })

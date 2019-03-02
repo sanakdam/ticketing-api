@@ -8,4 +8,5 @@ module.exports = (app) => {
 	app.get('/counting', Ticket.counting);
 	app.get('/decrease', Ticket.decrease);
     app.get('/generate', Ticket.generate);
+    app.put('/fcm', Ticket.putFCM);
 }
