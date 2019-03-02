@@ -4,7 +4,8 @@ module.exports = (sequelize, DataTypes) => {
     reg_id: DataTypes.TEXT,
     count: DataTypes.INTEGER
   }, {
-  	timestamps: false
+      timestamps: true,
+  	  timestamps: false
   });
   dashboard.associate = function(models) {
     // associations can be defined here

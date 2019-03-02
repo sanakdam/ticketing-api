@@ -8,7 +8,8 @@ module.exports = (sequelize, DataTypes) => {
     strata: DataTypes.STRING,
     information: DataTypes.STRING
   }, {
-  	timestamps: false
+  	timestamps: true,
+    timestamps: false
   });
   ticket.associate = function(models) {
   };
