@@ -1,23 +1,23 @@
 {
   "development": {
-    "username": "root",
-    "password": "borneotripp455w0rd",
+    "username": "san",
+    "password": "Password",
     "database": "ticketing",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "timezone": "Asia/Jakarta"
   },
   "test": {
-    "username": "root",
-    "password": "borneotripp455w0rd",
+    "username": "san",
+    "password": "Password",
     "database": "ticketing",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "timezone": "Asia/Jakarta"
   },
   "production": {
-    "username": "root",
-    "password": "borneotripp455w0rd",
+    "username": "san",
+    "password": "Password",
     "database": "ticketing",
     "host": "127.0.0.1",
     "dialect": "mysql",
